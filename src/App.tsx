@@ -1,37 +1,41 @@
 import { useEffect, useState } from "react";
 
-interface Joke {
-  id: number;
-  type: string;
-  setup: string;
-  punchline: string;
+// interface quote {
+//   id: number;
+//   type: string;
+//   setup: string;
+//   punchline: string;
+// }
+
+interface kanyeWestQuotes {
+  quote: string
 }
 
 function App() {
-  const [joke, setJoke] = useState<Joke>();
+  const [quote, setquote] = useState<kanyeWestQuotes>();
 
   useEffect(() => {
-    const fetchJoke = async () => {
+    const fetchquote = async () => {
       const response = await fetch(
-        "https://jokestemp.neillbogie.repl.co/jokes/general/random"
+        "https://api.kanye.rest/"
       );
-      const jsonBody: Joke[] = await response.json();
-      setJoke(jsonBody[0]);
+      const jsonBody: kanyeWestQuotes = await response.json();
+      setquote(jsonBody);
     };
 
-    fetchJoke();
+    fetchquote();
   }, []);
 
   // useEffect(() => {
-  //   fetch("https://jokestemp.neillbogie.repl.co/jokes/general/random")
+  //   fetch("https://quotestemp.neillbogie.repl.co/quotes/general/random")
   //     .then(response => response.json())
-  //     .then((jsonBody: Joke[]) => setJoke(jsonBody[0]));
+  //     .then((jsonBody: quote[]) => setquote(jsonBody[0]));
   // }, [])
 
   return (
     <>
-      <h1>Joke app</h1>
-      {joke && (
+      <h1>quote app</h1>
+      {quote && (
         // This is a conditional rendering strategy
         //  using 'short-circuiting': if the left-hand
         //  side of an && is false, then JavaScript
@@ -42,10 +46,10 @@ function App() {
         // Exploiting that feature to conditional render JSX!
         <>
           <p>
-            <b>{joke.setup}</b>
+            <b>{quote.quote}</b>
           </p>
           <p>
-            <i>{joke.punchline}</i>
+            {/* <i>{quote.punchline}</i> */}
           </p>
         </>
       )}
